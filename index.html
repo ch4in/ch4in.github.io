@@ -74,6 +74,74 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-python多线程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/11/python多线程/" class="article-date">
+  <time datetime="2015-03-11T13:23:21.000Z" itemprop="datePublished">2015-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/11/python多线程/">python多线程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>python 2中主要有低级的Thread、高级的Threading，以及三方的threadpool。</p>
+<h3 id="theadpool"><a href="http://chrisarndt.de/projects/threadpool/api/" target="_blank" rel="external">theadpool</a></h3><figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import threadpool <span class="keyword">as</span> tp</span><br><span class="line">pool = tp.<span class="type">ThreadPool</span>(<span class="number">30</span>) </span><br><span class="line">reqs = tp.makeRequests(func, args, callback) </span><br><span class="line">参数列表中的每一个元素是两个元素的元组，分别是位置参数列表和关键字参数字典。[(<span class="literal">[]</span>, &#123;&#125;), (<span class="literal">[]</span>,&#123;&#125;)]</span><br><span class="line">[pool.putRequest(req) <span class="keyword">for</span> req <span class="keyword">in</span> reqs] </span><br><span class="line">pool.wait<span class="literal">()</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="threading"><a href="https://docs.python.org/2/library/threading.html#module-threading" target="_blank" rel="external">threading</a></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 单线程模板</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span><span class="params">(threading.Thread)</span>:</span></span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, target, args)</span>:</span></span><br><span class="line">          super(MyThread, self).__init__()</span><br><span class="line">          self.target = target</span><br><span class="line">          self.args = args</span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">          self.target(self.args)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(var1)</span>:</span> <span class="keyword">pass</span></span><br><span class="line">t = MyTread(foo, var1)</span><br><span class="line">t.start()</span><br><span class="line">t.join()</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="线程优先级队列（Queue）"><a href="https://docs.python.org/2/library/queue.html#module-Queue" target="_blank" rel="external">线程优先级队列（Queue）</a></h3><p>workQueue = Queue.Queue(10)<br>workQueue.put(item)   .get()</p>
+<ul>
+<li><p>类</p>
+<blockquote>
+<p>Queue.Queue(maxsize = 0) #FIFO<br>Queue.LifoQueue(maxsize = 0)<br>Queue.PriorityQueue(maxsize = 0)</p>
+</blockquote>
+</li>
+<li><p>异常</p>
+<blockquote>
+<p>Queue.Empty<br>Queue.Full</p>
+</blockquote>
+</li>
+<li><p>方法</p>
+<blockquote>
+<p>Queue.qsize() 返回队列的大小<br>Queue.empty() 如果队列为空，返回True<br>Queue.full() 如果队列满了，返回True<br>Queue.get([block[, timeout]])获取队列，block 布尔 是否堵塞，timeout等待时间<br>Queue.get_nowait() 相当Queue.get(False)<br>Queue.put(item[, block[, timeout]]) 写入队列，block 布尔 是否堵塞，timeout等待时间<br>Queue.put_nowait(item) 相当Queue.put(item, False)<br>Queue.task_done() 消费者在完成一项工作后，task_done函数向任务已经完成的队列发送一个信号<br>Queue.join() 等到队列为空，再执行别的操作</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="threading_+_Queue">threading + Queue</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> Queue</span><br><span class="line"></span><br><span class="line">Q = Queue.Queue(<span class="number">10</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer</span><span class="params">(threading.Thread)</span>:</span></span><br><span class="line">    <span class="string">"""docstring for Producer"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            product = range(<span class="number">5</span>)</span><br><span class="line">            n = random.choice(product)</span><br><span class="line">            Q.put(n)</span><br><span class="line">            <span class="keyword">print</span> <span class="string">'Producer-%d'</span> % n</span><br><span class="line">            time.sleep(random.random())</span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer</span><span class="params">(threading.Thread)</span>:</span></span><br><span class="line">    <span class="string">"""docstring for Consumer"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            n = Q.get()</span><br><span class="line">            <span class="keyword">print</span> <span class="string">'Consumer-%d'</span> % n</span><br><span class="line">            Q.task_done()</span><br><span class="line">            time.sleep(random.random())</span><br><span class="line"></span><br><span class="line">p = Producer()</span><br><span class="line">c = Consumer()</span><br><span class="line">p.start()</span><br><span class="line">c.start()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2015/03/11/python多线程/" data-id="ci74srhxm0003lwazrg8uwwip" class="article-share-link" data-share="baidu">Share</a>
+      
+
+      
+        <a href="http://yoursite.com/2015/03/11/python多线程/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-PEP8摘记" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/03/11/PEP8摘记/" class="article-date">
@@ -190,7 +258,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2015/03/11/PEP8摘记/" data-id="ci74dhcai000bucazlu3fplrj" class="article-share-link" data-share="baidu">Share</a>
+        <a data-url="http://yoursite.com/2015/03/11/PEP8摘记/" data-id="ci74srhy3000dlwaz7b3gncxy" class="article-share-link" data-share="baidu">Share</a>
       
 
       
@@ -259,7 +327,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2015/03/05/python-encode-decode/" data-id="ci74dhca60003ucaz2z0pw7qo" class="article-share-link" data-share="baidu">Share</a>
+        <a data-url="http://yoursite.com/2015/03/05/python-encode-decode/" data-id="ci74srhxq0006lwazdy6yk7pb" class="article-share-link" data-share="baidu">Share</a>
       
 
       
@@ -312,7 +380,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2015/01/26/ANSI、GBK、GB2312、UTF-8、GB18030和UNICODE/" data-id="ci74dhc8y0000ucaz92hzicfe" class="article-share-link" data-share="baidu">Share</a>
+        <a data-url="http://yoursite.com/2015/01/26/ANSI、GBK、GB2312、UTF-8、GB18030和UNICODE/" data-id="ci74srhwf0000lwazy47y7sws" class="article-share-link" data-share="baidu">Share</a>
       
 
       
@@ -358,7 +426,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://yoursite.com/2014/07/20/Python-安装-setuptools-出现-UnicodeDecodeError-ascii-codec-can-t-decode-byte/" data-id="ci74dhcaf0009ucazs4psp09x" class="article-share-link" data-share="baidu">Share</a>
+        <a data-url="http://yoursite.com/2014/07/20/Python-安装-setuptools-出现-UnicodeDecodeError-ascii-codec-can-t-decode-byte/" data-id="ci74srhxz000blwazvqazuoy2" class="article-share-link" data-share="baidu">Share</a>
       
 
       
@@ -367,59 +435,6 @@
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-SublimeText3-安装-Emmet" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/07/18/SublimeText3-安装-Emmet/" class="article-date">
-  <time datetime="2014-07-18T14:58:03.000Z" itemprop="datePublished">2014-07-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/07/18/SublimeText3-安装-Emmet/">SublimeText3 安装 Emmet</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>在ST3中打开console， <code>ctrl + ` </code> 。</li>
-<li><p>执行一下代码，安装<a href="https://packagecontrol.io/installation#st3" target="_blank" rel="external">Package Control</a>。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request,os,hashlib; h = <span class="string">'2deb499853c4371624f5a07e27c334aa'</span> + <span class="string">'bf8c4e67d14fb0525ba4f89698a6d7e1'</span>; pf = <span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( <span class="string">'http://packagecontrol.io/'</span> + pf.replace(<span class="string">' '</span>, <span class="string">'%20'</span>)).read(); dh = hashlib.sha256(by).hexdigest(); print(<span class="string">'Error validating download (got %s instead of %s), please try manual install'</span> % (dh, h)) <span class="keyword">if</span> dh != h <span class="keyword">else</span> open(os.path.join( ipp, pf), <span class="string">'wb'</span> ).write(by)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>Ctrl + Shift + p</code>，输入pcip，选择 Package Control: Install Package，等待。</p>
-</li>
-<li>在出现的框中输入<a href="https://packagecontrol.io/packages/Emmet" target="_blank" rel="external">emmet</a>，选择第一项，如下图所示，等待安装完成，重启ST3。<br><img src="http://7u2pxf.com1.z0.glb.clouddn.com/emmet.jpg" alt=""></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://yoursite.com/2014/07/18/SublimeText3-安装-Emmet/" data-id="ci74dhcac0006ucazrdywougw" class="article-share-link" data-share="baidu">Share</a>
-      
-
-      
-        <a href="http://yoursite.com/2014/07/18/SublimeText3-安装-Emmet/#ds-thread" class="article-comment-link">Comments</a>
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime/">sublime</a></li></ul>
 
     </footer>
   </div>
@@ -443,7 +458,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Common/">Common</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/">CTF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Common/">Common</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -461,7 +476,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -471,6 +486,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/03/11/python多线程/">python多线程</a>
+          </li>
         
           <li>
             <a href="/2015/03/11/PEP8摘记/">PEP8摘记</a>
@@ -486,10 +505,6 @@
         
           <li>
             <a href="/2014/07/20/Python-安装-setuptools-出现-UnicodeDecodeError-ascii-codec-can-t-decode-byte/">Python 安装 setuptools 出现 UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte ...</a>
-          </li>
-        
-          <li>
-            <a href="/2014/07/18/SublimeText3-安装-Emmet/">SublimeText3 安装 Emmet</a>
           </li>
         
       </ul>

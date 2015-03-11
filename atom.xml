@@ -4,7 +4,7 @@
   <subtitle><![CDATA[The quieter you become, the more you are able to hear]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-03-11T06:32:38.303Z</updated>
+  <updated>2015-03-11T14:02:58.153Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[python多线程]]></title>
+    <link href="http://yoursite.com/2015/03/11/python%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    <id>http://yoursite.com/2015/03/11/python多线程/</id>
+    <published>2015-03-11T13:23:21.000Z</published>
+    <updated>2015-03-11T14:02:58.153Z</updated>
+    <content type="html"><![CDATA[<p>python 2中主要有低级的Thread、高级的Threading，以及三方的threadpool。</p>
+<h3 id="theadpool"><a href="http://chrisarndt.de/projects/threadpool/api/" target="_blank" rel="external">theadpool</a></h3><figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import threadpool <span class="keyword">as</span> tp</span><br><span class="line">pool = tp.<span class="type">ThreadPool</span>(<span class="number">30</span>) </span><br><span class="line">reqs = tp.makeRequests(func, args, callback) </span><br><span class="line">参数列表中的每一个元素是两个元素的元组，分别是位置参数列表和关键字参数字典。[(<span class="literal">[]</span>, &#123;&#125;), (<span class="literal">[]</span>,&#123;&#125;)]</span><br><span class="line">[pool.putRequest(req) <span class="keyword">for</span> req <span class="keyword">in</span> reqs] </span><br><span class="line">pool.wait<span class="literal">()</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="threading"><a href="https://docs.python.org/2/library/threading.html#module-threading" target="_blank" rel="external">threading</a></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 单线程模板</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span><span class="params">(threading.Thread)</span>:</span></span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, target, args)</span>:</span></span><br><span class="line">          super(MyThread, self).__init__()</span><br><span class="line">          self.target = target</span><br><span class="line">          self.args = args</span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">          self.target(self.args)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(var1)</span>:</span> <span class="keyword">pass</span></span><br><span class="line">t = MyTread(foo, var1)</span><br><span class="line">t.start()</span><br><span class="line">t.join()</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="线程优先级队列（Queue）"><a href="https://docs.python.org/2/library/queue.html#module-Queue" target="_blank" rel="external">线程优先级队列（Queue）</a></h3><p>workQueue = Queue.Queue(10)<br>workQueue.put(item)   .get()</p>
+<ul>
+<li><p>类</p>
+<blockquote>
+<p>Queue.Queue(maxsize = 0) #FIFO<br>Queue.LifoQueue(maxsize = 0)<br>Queue.PriorityQueue(maxsize = 0)</p>
+</blockquote>
+</li>
+<li><p>异常</p>
+<blockquote>
+<p>Queue.Empty<br>Queue.Full</p>
+</blockquote>
+</li>
+<li><p>方法</p>
+<blockquote>
+<p>Queue.qsize() 返回队列的大小<br>Queue.empty() 如果队列为空，返回True<br>Queue.full() 如果队列满了，返回True<br>Queue.get([block[, timeout]])获取队列，block 布尔 是否堵塞，timeout等待时间<br>Queue.get_nowait() 相当Queue.get(False)<br>Queue.put(item[, block[, timeout]]) 写入队列，block 布尔 是否堵塞，timeout等待时间<br>Queue.put_nowait(item) 相当Queue.put(item, False)<br>Queue.task_done() 消费者在完成一项工作后，task_done函数向任务已经完成的队列发送一个信号<br>Queue.join() 等到队列为空，再执行别的操作</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="threading_+_Queue">threading + Queue</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> Queue</span><br><span class="line"></span><br><span class="line">Q = Queue.Queue(<span class="number">10</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer</span><span class="params">(threading.Thread)</span>:</span></span><br><span class="line">    <span class="string">"""docstring for Producer"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            product = range(<span class="number">5</span>)</span><br><span class="line">            n = random.choice(product)</span><br><span class="line">            Q.put(n)</span><br><span class="line">            <span class="keyword">print</span> <span class="string">'Producer-%d'</span> % n</span><br><span class="line">            time.sleep(random.random())</span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer</span><span class="params">(threading.Thread)</span>:</span></span><br><span class="line">    <span class="string">"""docstring for Consumer"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            n = Q.get()</span><br><span class="line">            <span class="keyword">print</span> <span class="string">'Consumer-%d'</span> % n</span><br><span class="line">            Q.task_done()</span><br><span class="line">            time.sleep(random.random())</span><br><span class="line"></span><br><span class="line">p = Producer()</span><br><span class="line">c = Consumer()</span><br><span class="line">p.start()</span><br><span class="line">c.start()</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<p>python 2中主要有低级的Thread、高级的Threading，以及三方的threadpool。</p>
+<h3 id="theadpool"><a href="http://chrisarndt.de/projects/threadpool/api/" target]]>
+    </summary>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[PEP8摘记]]></title>
