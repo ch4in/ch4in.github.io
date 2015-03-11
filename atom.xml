@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[Life.]]></title>
+  <subtitle><![CDATA[The quieter you become, the more you are able to hear]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://yoursite.com/"/>
+  <updated>2015-03-11T06:32:38.303Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name><![CDATA[ch4in]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[PEP8摘记]]></title>
+    <link href="http://yoursite.com/2015/03/11/PEP8%E6%91%98%E8%AE%B0/"/>
+    <id>http://yoursite.com/2015/03/11/PEP8摘记/</id>
+    <published>2015-03-11T06:25:27.000Z</published>
+    <updated>2015-03-11T06:32:38.303Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>A Foolish Consistency is the Hobgoblin of Little Minds</p>
+</blockquote>
+<h3 id="代码布局">代码布局</h3><ul>
+<li>Indentation= 4 space</li>
+<li>spaces-only</li>
+<li>Maximum Line Length &lt;= 72</li>
+<li>空行：<ul>
+<li>用两行分割<strong>顶级函数</strong>和<strong>类的定义</strong></li>
+<li>用一行分割类内方法</li>
+<li>当空行用于分割方法(method)的定义时,在’class’行和第一个方法定义之间也要有一个空行</li>
+<li>函数内逻辑段落使用一行分割</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="编码:_utf-8">编码: utf-8</h3><hr>
+<h3 id="导入import">导入import</h3><ul>
+<li>每行一句导入</li>
+<li>Imports通常被放在文件顶部，仅在模块注释和文档字符串之后， 在模块的全局变量和常量之前。Imports应该有顺序地成组安放：<ol>
+<li>标准库的导入(Imports)</li>
+<li>相关的主包(major package)的导入</li>
+<li>特定应用的导入(imports)</li>
+</ol>
+</li>
+<li>应该在每组导入之间放置一个空行。</li>
+<li>对于内部包的导入是不推荐使用相对导入的。对所有导入都要使用包的绝对路径。</li>
+</ul>
+<hr>
+<h3 id="空格">空格</h3><ul>
+<li>“spam( ham[ 1 ], { eggs: 2 } )”. Always write this as”spam(ham[1], {eggs: 2})”.</li>
+<li>“if x == 4 : print x , y ; x , y = y , x”. Always write this as”if x == 4: print x, y; x, y = y, x”</li>
+<li>“dict [‘key’] = list [index]”. Always write this as”dict[‘key’] = list[index]”</li>
+<li>始终在这些二元运算符两边放置一个空格: 赋值(=),比较(==, &lt;, &gt;, !=, &lt;&gt;, &lt;=,&gt;=, in, not in, is, is not),布尔运算 (and, or, not).</li>
+<li><p>不要在用于指定关键字参数或默认参数值的’=’号周围使用空格。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">complex</span><span class="params">(real, imag=<span class="number">0.0</span>)</span>:</span></span><br><span class="line">     <span class="keyword">return</span> magic(r=real, i=imag)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不要将多条语句写在同一行上</p>
+</li>
+</ul>
+<hr>
+<h3 id="注释">注释</h3><ul>
+<li>Block Comments<ul>
+<li>注释块中每行以’#’和一个空格开始</li>
+<li>注释块内的段落以仅含单个’#’的行分割.</li>
+</ul>
+</li>
+<li>Inline Comments<ul>
+<li>行内注释应该至少用两个空格和语句分开. 它们应该以’#’和单个空格开始</li>
+</ul>
+</li>
+<li>Documentation Strings </li>
+</ul>
+<hr>
+<h3 id="命名约定(Naming_Conventions)">命名约定(Naming Conventions)</h3><ul>
+<li>_single_leading_underscore(以一个下划线作前导):弱的”内部使用(internal use)”标志(例如,”from M import *”不会导入以下划线开头的对象).</li>
+<li>single<em>trailing_underscore</em>(以一个下划线结尾):用于避免与Python关键词的冲突, 例如.”Tkinter.Toplevel(master, class_=’ClassName’)”.</li>
+<li><em>_ double</em> leading_ underscore(双下划线):从Python 1.4起为类私有名</li>
+<li><strong> double<em> leading</em> and<em> trailing</em> underscore</strong> : 特殊的(magic)对象或属性, 存在于用户控制的(user-controlled)名字空间, 例如:<strong> init</strong>,<strong> import</strong> 或<strong> file</strong>. </li>
+<li>永远不要用字符`l’(小写字母el(就是读音,下同)),O’(大写字母oh),或I’(大写字母eye)作为单字符的变量名</li>
+<li>模块应该是不含下划线的, 简短的, 小写的名字</li>
+<li>类名总是使用首字母大写单词串(CapWords)</li>
+<li>函数名应该为小写, 可能用下划线风格单词以增加可读性. </li>
+</ul>
+<hr>
+<h3 id="继承的设计(Designing_for_inheritance)">继承的设计(Designing for inheritance)</h3><ul>
+<li>始终要确定一个类中的方法和实例变量是否要被公开.<br>通常, 永远不要将数据变量公开, 除非你实现的本质上只是记录. 人们总是更喜欢给类提供一个函数的接口作为替换</li>
+<li>同样, 确定你的属性是否应为私有的. 私有与非公有的区别在于: 前者永远不会被用在一个派生类中, 而后者可能会. </li>
+<li>私有属性必须有两个前导下划线, 无后置下划线.</li>
+<li>非公有属性必须有一个前导下划线, 无后置下划线</li>
+<li>公共属性没有前导和后置下划线, 除非它们与保留字冲突, 在此情况下, 单个后置下划线比前置或混乱的拼写要好, 例如:class_优于klass.</li>
+</ul>
+<hr>
+<h3 id="设计建议">设计建议</h3><ul>
+<li>同象None之类的单值进行比较, 应该永远用:’is’或’is not’</li>
+<li><p>在检查前缀或后缀时避免对字符串进行切片,用startswith()和endswith()代替, 因为它们是明确的并且错误更少. 例如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">No: <span class="keyword">if</span> foo[:<span class="number">3</span>] == <span class="string">'bar'</span>:</span><br><span class="line">Yes: <span class="keyword">if</span> foo.startswith(<span class="string">'bar'</span>):</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象类型的比较应该始终用isinstance()代替直接比较类型. 例如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">No: <span class="keyword">if</span> type(obj) <span class="keyword">is</span> type(<span class="number">1</span>):</span><br><span class="line"> Yes: <span class="keyword">if</span> isinstance(obj, int):</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查一个对象是否是字符串时, 紧记它也可能是unicode字符串!在Python 2.3, str和unicode有公共的基类,basestring,所以你可以这样做</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> isinstance(obj,  basestring):</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不要用 == 来比较布尔型的值以确定是True或False</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">No: <span class="keyword">if</span> greeting == <span class="keyword">True</span>:</span><br><span class="line">Yes: <span class="keyword">if</span> greeting:</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>参考：<br><a href="http://pan.baidu.com/s/1dDGm5ln" target="_blank" rel="external">PythonCodingRule.pdf</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>A Foolish Consistency is the Hobgoblin of Little Minds</p>
+</blockquote>
+<h3 id="代码布局">代码布局</h3><ul>
+<li>Indentation= 4 spac]]>
+    </summary>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[python encode/decode]]></title>
+    <link href="http://yoursite.com/2015/03/05/python-encode-decode/"/>
+    <id>http://yoursite.com/2015/03/05/python-encode-decode/</id>
+    <published>2015-03-05T02:37:18.000Z</published>
+    <updated>2015-03-05T04:04:48.091Z</updated>
+    <content type="html"><![CDATA[<p>python2.7 的编码问题很容易让人迷惑，在python 3 中则不用纠结这个问题，都是unicode编码。<br>首先了解一下什么是编码，拿最简单的ASCII编码来说，我们表示‘a’，则对应的byte为\x61，或者‘α’对应为双byte的 \xc0 \xb1。解码，则是相反的过程。</p>
+<blockquote>
+<p>在python 2.7中：</p>
+<ul>
+<li>str本质含义是“某种编码格式”，绝大多数情况下，被引号框起来的字符串，就是str，这时的字符串编码类型，其实就是你Python文件的编码类型，比如在Windows里，默认用的是GBK编码。</li>
+<li>Unicode格式的含义就是“用unicode编码的字符串”。Python在进入2.0版后正式定义了了Unicode字符串这个奇怪的特性，目的就是为了处理太多种语言编码的文本。从那时开始，Python语言中的字符串类型就分为两种：一种是传统的Python字符串（各种花样编码），另一种则是新出现的Unicode。</li>
+<li>‘unicode’.encode(‘encoding’) ，得到 str</li>
+<li>‘str’.decode(‘encoidng’) ，得到unicode<br>(encoding为编码方式，如UTF-8)</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p>在python 3中：</p>
+<ul>
+<li>str格式的定义变更为”Unicode类型的字符串“，也就是说在默认情况下，被引号框起来的字符串，是使用Unicode编码的。</li>
+<li>而“不是Unicode的某种编码格式”，比如UTF-8、GBK，这些编码方式被定义为了bytes，这里的bytes和py2中的str有很多相似的地方。</li>
+<li>所有str都为 unicode编码，所以只有encode方法<br>str.encode(‘utf-8’) ，得到bytes<br>再从byte.decode(‘utf-8’) ，重新得到unicode编码的字符串</li>
+</ul>
+</blockquote>
+<hr>
+<p>参考链接：</p>
+<ol>
+<li><a href="http://stackoverflow.com/questions/11596623/i-dont-understand-encode-and-decode-in-python-2-7-3" target="_blank" rel="external">I don’t understand encode and decode in Python (2.7.3)</a></li>
+<li><a href="http://www.joelonsoftware.com/articles/Unicode.html" target="_blank" rel="external">The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a></li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>python2.7 的编码问题很容易让人迷惑，在python 3 中则不用纠结这个问题，都是unicode编码。<br>首先了解一下什么是编码，拿最简单的ASCII编码来说，我们表示‘a’，则对应的byte为\x61，或者‘α’对应为双byte的 \xc0 \xb1。解码，]]>
+    </summary>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ANSI、GBK、GB2312、UTF-8、GB18030和UNICODE]]></title>
+    <link href="http://yoursite.com/2015/01/26/ANSI%E3%80%81GBK%E3%80%81GB2312%E3%80%81UTF-8%E3%80%81GB18030%E5%92%8CUNICODE/"/>
+    <id>http://yoursite.com/2015/01/26/ANSI、GBK、GB2312、UTF-8、GB18030和UNICODE/</id>
+    <published>2015-01-26T09:48:57.000Z</published>
+    <updated>2015-03-05T03:46:49.677Z</updated>
+    <content type="html"><![CDATA[<ul>
+<li>中国人民通过对 ASCII 编码的中文扩充改造，产生了 GB2312 编码，可以表示6000多个常用汉字。</li>
+<li>汉字实在是太多了，包括繁体和各种字符，于是产生了 GBK 编码，它包括了 GB2312 中的编码，同时扩充了很多。</li>
+<li>中国是个多民族国家，各个民族几乎都有自己独立的语言系统，为了表示那些字符，继续把 GBK 编码扩充为 GB18030 编码。</li>
+<li>每个国家都像中国一样，把自己的语言编码，于是出现了各种各样的编码，如果你不安装相应的编码，就无法解释相应编码想表达的内容。</li>
+<li>终于，有个叫 ISO 的组织看不下去了。他们一起创造了一种编码 UNICODE ，这种编码非常大，大到可以容纳世界上任何一个文字和标志。所以只要电脑上有 UNICODE 这种编码系统，无论是全球哪种文字，只需要保存文件的时候，保存成 UNICODE 编码就可以被其他电脑正常解释。</li>
+<li>UNICODE 在网络传输中，出现了两个标准 UTF-8 和 UTF-16，分别每次传输 8个位和 16个位。</li>
+<li>于是就会有人产生疑问，UTF-8 既然能保存那么多文字、符号，为什么国内还有这么多使用 GBK 等编码的人？因为 UTF-8 等编码体积比较大，占电脑空间比较多，如果面向的使用人群绝大部分都是中国人，用 GBK 等编码也可以。但是目前的电脑来看，硬盘都是白菜价，电脑性能也已经足够无视这点性能的消耗了。所以推荐所有的网页使用统一编码：UTF-8。</li>
+</ul>
+<h6 id="参考链接"><a href="http://www.qianxingzhem.com/post-1499.html" target="_blank" rel="external">参考链接</a></h6>]]></content>
+    <summary type="html">
+    <![CDATA[<ul>
+<li>中国人民通过对 ASCII 编码的中文扩充改造，产生了 GB2312 编码，可以表示6000多个常用汉字。</li>
+<li>汉字实在是太多了，包括繁体和各种字符，于是产生了 GBK 编码，它包括了 GB2312 中的编码，同时扩充了很多。</li>
+<li>中]]>
+    </summary>
+    
+      <category term="Common" scheme="http://yoursite.com/tags/Common/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python 安装 setuptools 出现 UnicodeDecodeError: 'ascii' codec can't decode byte ...]]></title>
+    <link href="http://yoursite.com/2014/07/20/Python-%E5%AE%89%E8%A3%85-setuptools-%E5%87%BA%E7%8E%B0-UnicodeDecodeError-ascii-codec-can-t-decode-byte/"/>
+    <id>http://yoursite.com/2014/07/20/Python-安装-setuptools-出现-UnicodeDecodeError-ascii-codec-can-t-decode-byte/</id>
+    <published>2014-07-20T04:50:50.000Z</published>
+    <updated>2015-01-26T10:41:28.568Z</updated>
+    <content type="html"><![CDATA[<h3 id="解决方法：">解决方法：</h3><p>打开C:\Python27\Lib下的 mimetypes.py 文件，找到 default_encoding = sys.getdefaultencoding()</p>
+<p>在这行前面添加三行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> sys.getdefaultencoding() != <span class="string">'gbk'</span>:</span><br><span class="line">   reload(sys)</span><br><span class="line">   sys.setdefaultencoding(<span class="string">'gbk'</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="解决方法：">解决方法：</h3><p>打开C:\Python27\Lib下的 mimetypes.py 文件，找到 default_encoding = sys.getdefaultencoding()</p>
+<p>在这行前面添加三行：</p>
+<figure]]>
+    </summary>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[SublimeText3 安装 Emmet]]></title>
+    <link href="http://yoursite.com/2014/07/18/SublimeText3-%E5%AE%89%E8%A3%85-Emmet/"/>
+    <id>http://yoursite.com/2014/07/18/SublimeText3-安装-Emmet/</id>
+    <published>2014-07-18T14:58:03.000Z</published>
+    <updated>2015-03-05T03:45:46.527Z</updated>
+    <content type="html"><![CDATA[<ol>
+<li>在ST3中打开console， <code>ctrl + ` </code> 。</li>
+<li><p>执行一下代码，安装<a href="https://packagecontrol.io/installation#st3" target="_blank" rel="external">Package Control</a>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request,os,hashlib; h = <span class="string">'2deb499853c4371624f5a07e27c334aa'</span> + <span class="string">'bf8c4e67d14fb0525ba4f89698a6d7e1'</span>; pf = <span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( <span class="string">'http://packagecontrol.io/'</span> + pf.replace(<span class="string">' '</span>, <span class="string">'%20'</span>)).read(); dh = hashlib.sha256(by).hexdigest(); print(<span class="string">'Error validating download (got %s instead of %s), please try manual install'</span> % (dh, h)) <span class="keyword">if</span> dh != h <span class="keyword">else</span> open(os.path.join( ipp, pf), <span class="string">'wb'</span> ).write(by)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Ctrl + Shift + p</code>，输入pcip，选择 Package Control: Install Package，等待。</p>
+</li>
+<li>在出现的框中输入<a href="https://packagecontrol.io/packages/Emmet" target="_blank" rel="external">emmet</a>，选择第一项，如下图所示，等待安装完成，重启ST3。<br><img src="http://7u2pxf.com1.z0.glb.clouddn.com/emmet.jpg" alt=""></li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<ol>
+<li>在ST3中打开console， <code>ctrl + ` </code> 。</li>
+<li><p>执行一下代码，安装<a href="https://packagecontrol.io/installation#st3" target="_blank" ]]>
+    </summary>
+    
+      <category term="sublime" scheme="http://yoursite.com/tags/sublime/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[About CTF]]></title>
+    <link href="http://yoursite.com/2014/03/17/About-CTF/"/>
+    <id>http://yoursite.com/2014/03/17/About-CTF/</id>
+    <published>2014-03-17T04:46:00.000Z</published>
+    <updated>2015-03-07T09:42:17.891Z</updated>
+    <content type="html"><![CDATA[<p>CTF全称Capture The Flag，中文叫做夺旗游戏。在一些关卡中通过各种各样的技术找到最终的flag，从而获得加分。<br>一般CTF比赛中，会涉及MISC,PPC,CRYPTO,PWN,REVERSE,WEB,STEGA这几种题目。</p>
+<ul>
+<li>MISC 的全称是 miscellaneous 杂乱无章的意思，其中的题目可能涉及，流量分析，取证，人肉，大数据统计等等。</li>
+<li>PPC 是 Professionally ProgramCoder 的意思，会涉及到一些简单的算法知识，不过比ACM要简单的多。</li>
+<li>CRYPTO 是密码学的缩写，这一类的题目通常以破解密文为主，加密算法有可能是古典加密算法，也有可能是现代的加密算法，甚至有些是出题者杜撰的加密算法。</li>
+<li>PWN 在黑客俚语中代表着，攻破，取得权限，在CTF中它代表着溢出类的题目。</li>
+<li>REVERSE 就是逆向工程，这个大家应该很熟悉的。破解crackme.exe就是这类题的主旋律。</li>
+<li>STEGA是Steganography的缩写，隐写术的意思，这类题很有意思，flag被藏在一段视频，一张图片，一首音乐，或者任何你想想不到的载体中，也是CTF比赛中最有挑战和乐趣的一类题。</li>
+<li>WEB 题型就是最大众化的WEB漏洞的考察了，他会涉及到注入，代码执行，文件包含等常见的WEB漏洞。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>CTF全称Capture The Flag，中文叫做夺旗游戏。在一些关卡中通过各种各样的技术找到最终的flag，从而获得加分。<br>一般CTF比赛中，会涉及MISC,PPC,CRYPTO,PWN,REVERSE,WEB,STEGA这几种题目。</p>
+<ul>
+<li>M]]>
+    </summary>
+    
+      <category term="CTF" scheme="http://yoursite.com/tags/CTF/"/>
+    
+  </entry>
+  
+</feed>
